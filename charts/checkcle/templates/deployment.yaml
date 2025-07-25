@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: {{ .Release.Name }}
+    {{- with .Values.deployment.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- with .Values.deployment.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        {{- with .Values.deployment.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.deployment.hostAliases }}
+      hostAliases:
+        {{- toYaml .Values.deployment.hostAliases | nindent 8 }}
+      {{- end }}
+      {{- if .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml .Values.deployment.affinity | nindent 8 }}
+      {{- end }}
+      {{- if .Values.deployment.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.deployment.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.deployment.tolerations }}
+      tolerations:
+        {{- toYaml .Values.deployment.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.deployment.priorityClassName }}
+      priorityClassName: {{ .Values.deployment.priorityClassName }}
+      {{- end }}
+      {{- if .Values.deployment.schedulerName }}
+      schedulerName: {{ .Values.deployment.schedulerName }}
+      {{- end }}
+      {{- if .Values.deployment.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.deployment.topologySpreadConstraints | nindent 8 }}
+      {{- end }}
+    
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}
+          {{- if .Values.deployment.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy | quote }}
+          {{- end }}
+          {{- if .Values.deployment.lifeCycleHooks }}
+          lifecycle:
+            {{- toYaml .Values.deployment.lifeCycleHooks | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8090
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /mnt/pb_data
+          {{- if .Values.deployment.resources }}
+          resources:
+            {{- toYaml .Values.deployment.resources | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc
