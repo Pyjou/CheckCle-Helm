@@ -1,0 +1,58 @@
+global:
+  image:
+    repository: "checkcle/checkcle"
+    tag: "latest"
+
+deployment:
+  affinity: {}
+  annotations: {}
+  hostAliases: []
+  image:
+    pullPolicy: IfNotPresent
+  labels: {}
+  lifeCycleHooks: {}
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: ""
+  replicaCount: 1
+  resources: 
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  schedulerName: ""
+  tolerations: []
+  topologySpreadConstraints: []
+
+ingress:
+  enabled: false
+  className: ""
+  hostname: ""
+  labels: {}
+  annotations: {}
+  path: "/"
+  pathType: "Prefix"
+  tls:
+    enabled: false
+    secretName: ""
+
+persistence:
+  accessModes: ReadWriteOnce
+  annotations: {}
+  labels: {}
+  size: 1Gi
+  storageClass: ""
+
+service:
+  annotations: {}
+  clusterIP: ""
+  externalTrafficPolicy: "Cluster"
+  labels: {}
+  loadBalancerIP: ""
+  nodePorts:
+    http: null
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP
