@@ -2,5 +2,5 @@ apiVersion: v2
 name: checkcle
 description: A Helm chart for CheckCle
 type: application
-version: 0.1.1
-appVersion: "v1.4.0"
+version: 0.2.0
+appVersion: "v1.5.0"
