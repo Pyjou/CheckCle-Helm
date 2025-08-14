@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   checkcle:
   - apiVersion: v2
+    appVersion: v1.5.0
+    created: "2025-08-14T18:10:39.120677712Z"
+    description: A Helm chart for CheckCle
+    digest: 06364c4ca9c4c9ec3e884d5306ea71787fd04de1710300919362636fd95ff831
+    name: checkcle
+    type: application
+    urls:
+    - https://github.com/Pyjou/CheckCle-Helm/releases/download/checkcle-0.2.0/checkcle-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: v1.4.0
     created: "2025-07-25T17:51:47.517384537Z"
     description: A Helm chart for CheckCle
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/Pyjou/CheckCle-Helm/releases/download/checkcle-0.1.1/checkcle-0.1.1.tgz
     version: 0.1.1
-generated: "2025-07-25T17:51:47.517396731Z"
+generated: "2025-08-14T18:10:39.120690096Z"
