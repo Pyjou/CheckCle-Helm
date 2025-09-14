@@ -3,4 +3,4 @@ name: checkcle
 description: A Helm chart for CheckCle
 type: application
 version: 0.2.0
-appVersion: "v1.5.0"
+appVersion: "v1.6.0"
